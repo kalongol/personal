@@ -1,1 +1,37 @@
-<h1>Main Project Coming Soon</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tunggu, men. Belum siap.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="name">Welcome, stalker.</h1>
+      <h1 class="name">Enjoy the show.</h1>
+      <div class="role">
+        <a href="https://101095.xyz/me">Visit my website, Enter at your own risk.<br>
+          The view is better from the inside. ↗</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Simple theme support detection
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.setAttribute('data-theme', 'dark');
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      document.body.setAttribute('data-theme', event.matches ? 'dark' : 'light');
+    });
+  </script>
+</body>
+
+</html>
