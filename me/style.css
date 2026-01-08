@@ -162,3 +162,38 @@ a:hover {
     padding: 2rem 1.5rem;
   }
 }
+
+/* Typewriter Effect */
+.typing-cursor::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+  color: var(--primary-color, currentColor);
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Initially hide content for typing effect to prevent flash */
+.cv-header .name,
+.cv-header .role,
+.cv-header .portfolio-link a,
+.cv-header .location {
+  visibility: hidden;
+}
+
+.cv-header .name.typing-active,
+.cv-header .role.typing-active,
+.cv-header .portfolio-link a.typing-active,
+.cv-header .location.typing-active {
+  visibility: visible;
+}
