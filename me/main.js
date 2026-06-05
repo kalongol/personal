@@ -86,8 +86,11 @@ function startGlitchSequence() {
 
     // Add 0.3s (300ms) delay after the header animation to reveal the rest of the content
     setTimeout(() => {
-        document.querySelectorAll('.divider, .section, .cv-footer').forEach(el => {
-            el.classList.add('reveal-content');
+        const revealElements = document.querySelectorAll('.divider, .section, .cv-footer');
+        revealElements.forEach((el, i) => {
+            setTimeout(() => {
+                el.classList.add('reveal-content');
+            }, i * 150); // Stagger each section's appearance by 150ms
         });
     }, globalDelay + 300);
 }
