@@ -186,16 +186,39 @@ a:hover {
 }
 
 @keyframes glitch-flash {
-  0% { background-color: var(--text-color); background-image: none; }
-  20% { background-color: transparent; background-image: repeating-linear-gradient(45deg, var(--text-color) 0, var(--text-color) 2px, transparent 2px, transparent 4px); }
-  40% { background-color: var(--text-color); background-image: none; }
-  60% { background-color: transparent; background-image: repeating-linear-gradient(-45deg, var(--text-color) 0, var(--text-color) 4px, transparent 4px, transparent 8px); }
-  80% { background-color: transparent; background-image: repeating-linear-gradient(90deg, var(--text-color) 0, var(--text-color) 2px, transparent 2px, transparent 6px); }
-  100% { background-color: var(--text-color); background-image: none; }
+  0% {
+    background-color: var(--text-color);
+    background-image: none;
+  }
+
+  20% {
+    background-color: transparent;
+    background-image: repeating-linear-gradient(45deg, var(--text-color) 0, var(--text-color) 2px, transparent 2px, transparent 4px);
+  }
+
+  40% {
+    background-color: var(--text-color);
+    background-image: none;
+  }
+
+  60% {
+    background-color: transparent;
+    background-image: repeating-linear-gradient(-45deg, var(--text-color) 0, var(--text-color) 4px, transparent 4px, transparent 8px);
+  }
+
+  80% {
+    background-color: transparent;
+    background-image: repeating-linear-gradient(90deg, var(--text-color) 0, var(--text-color) 2px, transparent 2px, transparent 6px);
+  }
+
+  100% {
+    background-color: var(--text-color);
+    background-image: none;
+  }
 }
 
 .is-glitching {
-  animation: glitch-flash 0.15s infinite steps(1);
+  animation: glitch-flash 0.10s infinite steps(1);
 }
 
 /* Initially hide content for sequence to prevent flash */
