@@ -18,63 +18,69 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', newTheme);
     });
 
-    // Start Typewriter Sequence
-    startTypingSequence();
+    // Start Glitch Sequence
+    startGlitchSequence();
 });
 
-// Typewriter Logic
-function typeWriter(element, text, speed = 40) {
-    return new Promise(resolve => {
-        element.textContent = '';
-        element.style.visibility = 'visible';
-        element.classList.add('typing-active');
-        element.classList.add('typing-cursor');
-
-        let i = 0;
-        function type() {
-            if (i < text.length) {
-                element.textContent += text.charAt(i);
-                i++;
-                setTimeout(type, speed);
-            } else {
-                element.classList.remove('typing-cursor');
-                resolve();
-            }
-        }
-        type();
-    });
-}
-
-async function startTypingSequence() {
+// Glitch Sequence Logic
+function startGlitchSequence() {
     const name = document.querySelector('.name');
     const role = document.querySelector('.role');
-    const portfolio = document.querySelector('.portfolio-link a');
     const location = document.querySelector('.location');
+    const portfolio = document.querySelector('.portfolio-link a');
 
     const elements = [
-        { el: name, text: 'Haekal Sandewang', speed: 80 },
-        { el: role, text: 'Into tech, animation, design, and all things creative', speed: 30 },
-        { el: portfolio, text: 'Portfolio ↗', speed: 50 },
-        { el: location, text: 'Makassar, Indonesia', speed: 50 }
+        { el: name, text: 'Haekal Sandewang' },
+        { el: role, text: 'Into tech, animation, design, and all things creative' },
+        { el: location, text: 'Makassar, Indonesia' },
+        { el: portfolio, text: 'Portfolio ↗' }
     ];
 
-    // Ensure elements exist and are ready
-    elements.forEach(item => {
-        if (item.el) {
-            // Store original text if we wanted to read it from DOM, but hardcoding for effect control is safer for now.
-            // Actually, reading from DOM is better to avoid duplication.
-            // Let's refactor to read from DOM if text is empty in config, but I've hardcoded.
-            // Hardcoding matches the file content I verified.
-            // Wait, the Portfolio text includes an arrow. The HTML has "Portfolio ↗".
-            // My hardcoded text is safe.
-        }
-    });
+    let globalDelay = 200;
 
-    for (const item of elements) {
-        if (item.el) {
-            await typeWriter(item.el, item.text, item.speed);
-            // Small pause between lines
-            await new Promise(r => setTimeout(r, 300));
-        }
-    }
+    elements.forEach((item, lineIndex) => {
+        if (!item.el) return;
+        
+        item.el.classList.add('glitch-active');
+        item.el.textContent = ''; // clear original text
+        
+        // Split into words, keeping spaces
+        const words = item.text.split(/(\s+)/); 
+        
+        words.forEach((word, wordIndex) => {
+            if (word.trim() === '') {
+                item.el.appendChild(document.createTextNode(word));
+                return;
+            }
+            
+            const wordContainer = document.createElement('span');
+            wordContainer.className = 'glitch-word';
+            
+            const textSpan = document.createElement('span');
+            textSpan.className = 'glitch-text';
+            textSpan.textContent = word;
+            
+            const blockSpan = document.createElement('span');
+            blockSpan.className = 'glitch-block';
+            
+            wordContainer.appendChild(textSpan);
+            wordContainer.appendChild(blockSpan);
+            item.el.appendChild(wordContainer);
+            
+            // Stagger each word
+            const delay = globalDelay + (wordIndex * 120);
+            
+            setTimeout(() => {
+                blockSpan.classList.add('is-glitching');
+                setTimeout(() => {
+                    blockSpan.classList.remove('is-glitching');
+                    blockSpan.style.display = 'none';
+                    textSpan.style.opacity = '1';
+                }, 250); // Glitch flash duration
+            }, delay);
+        });
+        
+        // Add enough delay for the next line to start after this line finishes
+        globalDelay += (words.length * 120) + 100;
+    });
 }
