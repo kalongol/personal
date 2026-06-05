@@ -84,7 +84,12 @@ function startGlitchSequence() {
         globalDelay += (words.length * 120) + 100;
     });
 
-    // Add 0.3s (300ms) delay after the header animation to reveal the rest of the content
+    // Trigger pull-up of the header after glitch sequence completely finishes
+    setTimeout(() => {
+        document.querySelector('.cv-header').classList.add('pull-up');
+    }, globalDelay + 250);
+
+    // Wait 0.3s (300ms) after the pull up starts to reveal the rest of the content
     setTimeout(() => {
         const revealElements = document.querySelectorAll('.divider, .section, .cv-footer');
         revealElements.forEach((el, i) => {
@@ -92,5 +97,5 @@ function startGlitchSequence() {
                 el.classList.add('reveal-content');
             }, i * 150); // Stagger each section's appearance by 150ms
         });
-    }, globalDelay + 300);
+    }, globalDelay + 550);
 }
