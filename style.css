@@ -109,3 +109,38 @@ a:hover {
     padding: 2rem 1.5rem;
   }
 }
+
+/* Glitch Reveal Styles */
+.glitch-word {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text {
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.glitch-block {
+  position: absolute;
+  top: 0;
+  left: -2px;
+  right: -2px;
+  bottom: 0;
+  background-color: transparent;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes glitch-flash {
+  0% { background-color: var(--text-color); background-image: none; }
+  20% { background-color: transparent; background-image: repeating-linear-gradient(45deg, var(--text-color) 0, var(--text-color) 2px, transparent 2px, transparent 4px); }
+  40% { background-color: var(--text-color); background-image: none; }
+  60% { background-color: transparent; background-image: repeating-linear-gradient(-45deg, var(--text-color) 0, var(--text-color) 4px, transparent 4px, transparent 8px); }
+  80% { background-color: transparent; background-image: repeating-linear-gradient(90deg, var(--text-color) 0, var(--text-color) 2px, transparent 2px, transparent 6px); }
+  100% { background-color: var(--text-color); background-image: none; }
+}
+
+.is-glitching {
+  animation: glitch-flash 0.15s infinite steps(1);
+}

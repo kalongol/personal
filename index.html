@@ -15,8 +15,8 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1 class="name">Welcome, stalker.</h1>
-      <h1 class="name">Enjoy the show.</h1>
+      <h1 class="name glitch-reveal">Welcome, stalker.</h1>
+      <h1 class="name glitch-reveal">Enjoy the show.</h1>
       <div class="role">
         <a href="https://101095.xyz/me">Visit my website, Enter at your own risk.<br>
           The view is better from the inside. ↗</a>
@@ -30,6 +30,52 @@
     }
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
       document.body.setAttribute('data-theme', event.matches ? 'dark' : 'light');
+    });
+
+    // Glitch Reveal Logic
+    const glitchElements = document.querySelectorAll('.glitch-reveal');
+    
+    glitchElements.forEach((el, index) => {
+      const text = el.textContent;
+      el.textContent = ''; // clear original text
+      
+      // Split into words, keeping spaces
+      const words = text.split(/(\s+)/); 
+      
+      words.forEach((word, wordIndex) => {
+        if (word.trim() === '') {
+          el.appendChild(document.createTextNode(word));
+          return;
+        }
+        
+        const wordContainer = document.createElement('span');
+        wordContainer.className = 'glitch-word';
+        
+        const textSpan = document.createElement('span');
+        textSpan.className = 'glitch-text';
+        textSpan.textContent = word;
+        
+        const blockSpan = document.createElement('span');
+        blockSpan.className = 'glitch-block';
+        
+        wordContainer.appendChild(textSpan);
+        wordContainer.appendChild(blockSpan);
+        el.appendChild(wordContainer);
+        
+        // Delay stagger per word and per line
+        const delay = (index * 400) + (wordIndex * 150);
+        
+        setTimeout(() => {
+          blockSpan.classList.add('is-glitching');
+          
+          // After a short glitch duration, show text
+          setTimeout(() => {
+            blockSpan.classList.remove('is-glitching');
+            blockSpan.style.display = 'none';
+            textSpan.style.opacity = '1';
+          }, 300); // Glitch duration
+        }, delay + 200); // initial offset
+      });
     });
   </script>
 </body>
