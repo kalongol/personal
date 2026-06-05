@@ -83,4 +83,11 @@ function startGlitchSequence() {
         // Add enough delay for the next line to start after this line finishes
         globalDelay += (words.length * 120) + 100;
     });
+
+    // Add 0.3s (300ms) delay after the header animation to reveal the rest of the content
+    setTimeout(() => {
+        document.querySelectorAll('.divider, .section, .cv-footer').forEach(el => {
+            el.classList.add('reveal-content');
+        });
+    }, globalDelay + 300);
 }
