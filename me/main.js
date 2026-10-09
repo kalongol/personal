@@ -18,38 +18,64 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', newTheme);
     });
 
+    // Language toggle (initial language is set in <head>)
+    const langBtn = document.getElementById('lang-toggle');
+    const titles = { en: '👋 Hi from Haekal Sandewang', id: '👋 Halo dari Haekal Sandewang' };
+
+    function applyLang(lang) {
+        html.setAttribute('data-lang', lang);
+        html.lang = lang;
+        document.title = titles[lang];
+        // The button offers the *other* language
+        langBtn.textContent = lang === 'en' ? '[ Bahasa Indonesia ]' : '[ English ]';
+        langBtn.lang = lang === 'en' ? 'id' : 'en';
+    }
+
+    applyLang(html.getAttribute('data-lang') === 'id' ? 'id' : 'en');
+
+    langBtn.addEventListener('click', () => {
+        const newLang = html.getAttribute('data-lang') === 'en' ? 'id' : 'en';
+        applyLang(newLang);
+        try { localStorage.setItem('lang', newLang); } catch (e) { }
+    });
+
     // Start Glitch Sequence
     startGlitchSequence();
 });
 
 // Glitch Sequence Logic
 function startGlitchSequence() {
-    const name = document.querySelector('.name');
-    const role = document.querySelector('.role');
-    const location = document.querySelector('.location');
-    const portfolio = document.querySelector('.portfolio-link a');
+    const html = document.documentElement;
 
-    const elements = [
-        { el: name, text: 'Haekal Sandewang' },
-        { el: role, text: 'Into tech, animation, design, and all things creative' },
-        { el: location, text: 'Makassar, Indonesia' },
-        { el: portfolio, text: 'Portfolio ↗' }
-    ];
+    // Intro is skipped for reduced motion / repeat visits (decided in <head>), or if the failsafe already fired.
+    if (html.classList.contains('skip-intro')) return;
+
+    html.classList.add('intro-started');
+    try { sessionStorage.setItem('introSeen', '1'); } catch (e) { }
+
+    // Text comes from the HTML itself, so wording is edited in one place only.
+    // Bilingual elements hold one <span lang> per language; only the active language is animated.
+    const lang = html.getAttribute('data-lang');
+    const elements = ['.name', '.role', '.location', '.portfolio-link a']
+        .map(selector => document.querySelector(selector))
+        .filter(Boolean)
+        .map(el => {
+            const target = el.querySelector('span[lang="' + lang + '"]') || el;
+            return { el, target, text: target.textContent.trim() };
+        });
 
     let globalDelay = 200;
 
-    elements.forEach((item, lineIndex) => {
-        if (!item.el) return;
-        
+    elements.forEach((item) => {
         item.el.classList.add('glitch-active');
-        item.el.textContent = ''; // clear original text
-        
+        item.target.textContent = ''; // clear original text
+
         // Split into words, keeping spaces
-        const words = item.text.split(/(\s+)/); 
+        const words = item.text.split(/(\s+)/);
         
         words.forEach((word, wordIndex) => {
             if (word.trim() === '') {
-                item.el.appendChild(document.createTextNode(word));
+                item.target.appendChild(document.createTextNode(word));
                 return;
             }
             
@@ -65,7 +91,7 @@ function startGlitchSequence() {
             
             wordContainer.appendChild(textSpan);
             wordContainer.appendChild(blockSpan);
-            item.el.appendChild(wordContainer);
+            item.target.appendChild(wordContainer);
             
             // Stagger each word
             const delay = globalDelay + (wordIndex * 120);

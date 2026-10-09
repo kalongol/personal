@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>👋 Hi from Haekal Sandewang</title>
+  <script>
+    // Gate the intro animation behind JS, and skip it for reduced-motion users and repeat visits in this session.
+    // Also pick the display language (saved choice, else browser language) before first paint.
+    (function () {
+      var root = document.documentElement;
+      var skip = false;
+      var lang = 'en';
+      try {
+        skip = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+          sessionStorage.getItem('introSeen') === '1';
+      } catch (e) { }
+      try {
+        var saved = localStorage.getItem('lang');
+        if (saved === 'en' || saved === 'id') lang = saved;
+        else if ((navigator.language || '').toLowerCase().indexOf('id') === 0) lang = 'id';
+      } catch (e) { }
+      root.setAttribute('data-lang', lang);
+      root.lang = lang;
+      root.classList.add('js');
+      if (skip) root.classList.add('skip-intro');
+      // Failsafe: if main.js never runs the intro, show the content anyway.
+      setTimeout(function () {
+        if (!root.classList.contains('intro-started')) root.classList.add('skip-intro');
+      }, 3000);
+    })();
+  </script>
   <link rel="stylesheet" href="/me/style.css">
   <link rel="icon" type="image/jpeg" href="/me/avatar.jpg" />
   <!-- Google Fonts: Space Mono for the perfect terminal/mechanical feel -->
@@ -15,113 +41,154 @@
 </head>
 
 <body>
+  <!-- Bilingual content: each translatable text has an EN and an ID <span lang="..">; CSS shows the active one. -->
   <main class="cv-container">
     <header class="cv-header">
       <h1 class="name">Haekal Sandewang</h1>
-      <p class="role">Into tech, animation, design, and all things creative</p>
+      <p class="role"><span lang="en">Brand development by day, motion design by heart</span><span lang="id">Brand
+          development di siang hari, motion design di hati</span></p>
       <p class="location">Makassar, Indonesia</p>
-      <p class="portfolio-link"><a href="https://drive.google.com/drive/u/0/folders/1QF6B0A9P5Ync824HecxktzpJlAx6Y2ZL"
-          target="_blank">Portfolio ↗</a></p>
+      <p class="portfolio-link"><a href="https://drive.google.com/drive/folders/1QF6B0A9P5Ync824HecxktzpJlAx6Y2ZL"
+          target="_blank" rel="noopener noreferrer">Portfolio ↗</a></p>
     </header>
 
     <div class="divider"></div>
 
     <section class="section">
-      <h2 class="section-title">SUMMARY</h2>
+      <h2 class="section-title"><span lang="en">Summary</span><span lang="id">Ringkasan</span></h2>
       <p class="summary-text">
-        I am a creative at heart who thrives in strategic roles. While my 9-5 is dedicated to being a
-        <strong>Brand Communications Manager</strong> driving growth and engagement, my passion lies in
-        <strong>Motion Graphics</strong> and <strong>Design</strong>. I leverage this dual perspective to
-        tell stories that are not only strategic but visually captivating.
+        <span lang="en">
+          By day, I'm a <strong>Brand Development Manager</strong> focused on growth and engagement. Outside work,
+          I'm drawn to <strong>motion graphics</strong> and <strong>design</strong>. I bring both sides to every
+          project: strategy that makes sense, visuals that stay with you.
+        </span>
+        <span lang="id">
+          Sehari-hari saya <strong>Manager Brand Development</strong> yang berfokus pada pertumbuhan dan engagement.
+          Di luar itu, saya tertarik pada <strong>motion graphics</strong> dan <strong>design</strong>. Dua sisi ini
+          saya bawa ke setiap proyek: strategi yang masuk akal, visual yang membekas.
+        </span>
       </p>
     </section>
 
     <section class="section">
-      <h2 class="section-title">EXPERIENCE</h2>
+      <h2 class="section-title"><span lang="en">Experience</span><span lang="id">Pengalaman</span></h2>
 
       <div class="job-entry">
         <div class="job-meta">
           <span class="job-company">SIPS Edutech Indonesia</span>
-          <span class="job-date">07/2024 - Present</span>
+          <span class="job-date"><span lang="en">Jul 2024 – Present</span><span lang="id">Jul 2024 –
+              Sekarang</span></span>
         </div>
-        <h3 class="job-title">Brand Communications Manager</h3>
+        <h3 class="job-title"><span lang="en">Brand Development Manager</span><span lang="id">Manager Brand
+            Development</span></h3>
         <p class="job-desc">
-          Leading cross-functional teams to deliver impactful campaigns.
-          Orchestrated online webinars targeting 1,000+ pharmacists.
-          Managed comprehensive offline events and live streaming for major pharmaceutical brands.
-        </p>
-      </div>
-
-      <div class="job-entry">
-        <div class="job-meta">
-          <span class="job-company">SIPS Edutech Indonesia</span>
-          <span class="job-date">06/2023 - 06/2024</span>
-        </div>
-        <h3 class="job-title">Marketing Activation</h3>
-        <p class="job-desc">
-          Boosted new user registrations by 20% through targeted activations.
-          Achieved consistent 10% monthly conversion of new users.
+          <span lang="en">
+            Lead brand development across CME webinars, high-value programs (Mini MBA in Healthcare, Clinic
+            Mentoring), and social media. Ran sponsored pharmaceutical webinars drawing 1,300–1,800+ registrants and
+            1,000+ live attendees each, meeting 100% of sponsor KPIs and earning repeat orders. Redesigned the
+            registration flow, nearly doubling sign-ups and paid participants.
+          </span>
+          <span lang="id">
+            Memimpin brand development untuk webinar CME, program bernilai tinggi (Mini MBA in Healthcare, Clinic
+            Mentoring), dan social media. Menjalankan webinar sponsor farmasi dengan 1.300–1.800+ registrant dan
+            1.000+ peserta live per sesi, memenuhi 100% KPI sponsor dan mendapat repeat order. Merombak alur
+            registrasi hingga sign-up dan peserta berbayar hampir dua kali lipat.
+          </span>
         </p>
       </div>
 
       <div class="job-entry">
         <div class="job-meta">
           <span class="job-company">Schoters</span>
-          <span class="job-date">10/2023 - 12/2023</span>
+          <span class="job-date"><span lang="en">Oct – Dec 2023</span><span lang="id">Okt – Des 2023</span></span>
         </div>
-        <h3 class="job-title">Video Editor Instructor</h3>
+        <h3 class="job-title"><span lang="en">Video Editor Instructor</span><span lang="id">Instruktur Video
+            Editing</span></h3>
         <p class="job-desc">
-          Conducted live webinars and interactive learning sessions for video editing students.
+          <span lang="en">Taught video editing through live webinars and hands-on sessions.</span>
+          <span lang="id">Mengajar video editing lewat webinar langsung dan sesi praktik.</span>
+        </p>
+      </div>
+
+      <div class="job-entry">
+        <div class="job-meta">
+          <span class="job-company">SIPS Edutech Indonesia</span>
+          <span class="job-date"><span lang="en">Jun 2023 – Jun 2024</span><span lang="id">Jun 2023 – Jun
+              2024</span></span>
+        </div>
+        <h3 class="job-title">Marketing Activation</h3>
+        <p class="job-desc">
+          <span lang="en">
+            Grew new user registrations by 20% through targeted activations, with a steady 10% monthly conversion of
+            new users.
+          </span>
+          <span lang="id">
+            Meningkatkan registrasi pengguna baru 20% lewat aktivasi yang terarah, dengan konversi bulanan konsisten
+            10% dari pengguna baru.
+          </span>
         </p>
       </div>
 
       <div class="job-entry">
         <div class="job-meta">
           <span class="job-company">Freelance</span>
-          <span class="job-date">2020 - 2023</span>
+          <span class="job-date">2020 – 2023</span>
         </div>
         <h3 class="job-title">Motion Graphic Designer</h3>
         <p class="job-desc">
-          Created multimedia visuals for healthcare professionals and brands such as <a
-            href="https://drive.google.com/drive/u/0/folders/1sVLOpzeiv_ww8-uNs_cSlVoVZJo9bO7j" target="_blank">Gojek,
-            Gery Salut, CUIT, and Ornamin C</a>.
-          Directed promotional concepts.
+          <span lang="en">
+            Produced motion and multimedia visuals for healthcare professionals and brands including <a
+              href="https://drive.google.com/drive/folders/1sVLOpzeiv_ww8-uNs_cSlVoVZJo9bO7j" target="_blank"
+              rel="noopener noreferrer">Gojek, Gery Salut, CUIT, and Ornamin C</a>. Directed promotional concepts.
+          </span>
+          <span lang="id">
+            Membuat visual motion dan multimedia untuk tenaga kesehatan dan brand seperti <a
+              href="https://drive.google.com/drive/folders/1sVLOpzeiv_ww8-uNs_cSlVoVZJo9bO7j" target="_blank"
+              rel="noopener noreferrer">Gojek, Gery Salut, CUIT, dan Ornamin C</a>. Mengarahkan konsep promosi.
+          </span>
         </p>
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">CONTACT, SOCIALS & PORTFOLIO</h2>
+      <h2 class="section-title"><span lang="en">Contact & Links</span><span lang="id">Kontak & Tautan</span></h2>
       <ul class="link-list">
         <li><a href="mailto:baktivisual@gmail.com">Email ↗</a></li>
-        <li><a href="https://wa.me/6285396633025" target="_blank">WhatsApp ↗</a></li>
-        <li><a href="https://linkedin.com/in/haekalsandewang" target="_blank">LinkedIn ↗</a></li>
+        <li><a href="https://wa.me/6285396633025" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></li>
+        <li><a href="https://linkedin.com/in/haekalsandewang" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        </li>
       </ul>
 
       <div class="divider" style="margin: 1.5rem 0; opacity: 0.5;"></div>
 
       <ul class="link-list">
-        <li><a href="https://drive.google.com/drive/u/0/folders/1QF6B0A9P5Ync824HecxktzpJlAx6Y2ZL"
-            target="_blank">Portfolio ↗</a></li>
-        <li><a href="https://www.youtube.com/channel/UCxJXvHjrKJWP99cXFAgPufw/" target="_blank">Youtube ↗</a></li>
-        <li><a href="https://soundcloud.com/kalongol" target="_blank">Soundcloud ↗</a></li>
+        <li><a href="https://www.youtube.com/channel/UCxJXvHjrKJWP99cXFAgPufw/" target="_blank"
+            rel="noopener noreferrer">YouTube ↗</a></li>
+        <li><a href="https://soundcloud.com/kalongol" target="_blank" rel="noopener noreferrer">SoundCloud ↗</a></li>
       </ul>
 
       <div class="divider" style="margin: 1.5rem 0; opacity: 0.5;"></div>
 
       <ul class="link-list">
-        <li><a href="https://instagram.com/kalongol" target="_blank">Instagram (@kalongol) ↗</a></li>
-        <li><a href="https://x.com/baktivisual" target="_blank">Twitter/X (@baktivisual) ↗</a></li>
+        <li><a href="https://instagram.com/kalongol" target="_blank" rel="noopener noreferrer">Instagram (@kalongol)
+            ↗</a></li>
+        <li><a href="https://x.com/baktivisual" target="_blank" rel="noopener noreferrer">Twitter/X (@baktivisual)
+            ↗</a></li>
         <li>
-          <a href="https://tiktok.com/@baktivisual" target="_blank">TikTok (@baktivisual) ↗</a>
-          <span style="display: block; color: var(--dim-color); font-size: 0.85em; margin-top: 0.2rem;">&nbsp;&nbsp;↳ "i
-            made content on tiktok too"</span>
+          <a href="https://tiktok.com/@baktivisual" target="_blank" rel="noopener noreferrer">TikTok (@baktivisual)
+            ↗</a>
+          <span style="display: block; color: var(--dim-color); font-size: 0.85em; margin-top: 0.2rem;">&nbsp;&nbsp;↳
+            <span lang="en">"I make content on TikTok too"</span><span lang="id">"saya bikin konten di TikTok
+              juga"</span></span>
         </li>
       </ul>
     </section>
 
     <footer class="cv-footer">
-      <button id="theme-toggle" class="theme-btn">[ Switch Theme ]</button>
+      <button id="theme-toggle" class="theme-btn"><span lang="en">[ Switch Theme ]</span><span lang="id">[ Ganti Tema
+          ]</span></button>
+      <button id="lang-toggle" class="theme-btn" lang="id" aria-label="Switch language / Ganti bahasa">[ Bahasa
+        Indonesia ]</button>
     </footer>
   </main>
   <script src="/me/main.js"></script>

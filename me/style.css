@@ -61,11 +61,15 @@ a:hover {
 /* Header */
 .cv-header {
   margin-bottom: 2rem;
+}
+
+/* Header starts vertically centered during the intro, then pulls up */
+.js:not(.skip-intro) .cv-header {
   transform: translateY(calc(50vh - 50% - 4rem));
   transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.cv-header.pull-up {
+.js:not(.skip-intro) .cv-header.pull-up {
   transform: translateY(0);
 }
 
@@ -144,6 +148,18 @@ a:hover {
 
 .link-list li {
   margin-bottom: 0.5rem;
+}
+
+/* Bilingual content: show only the active language's spans */
+html[data-lang="en"] span[lang="id"],
+html[data-lang="id"] span[lang="en"] {
+  display: none;
+}
+
+.cv-footer {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 /* Theme Toggle */
@@ -227,31 +243,34 @@ a:hover {
   animation: glitch-flash 0.10s infinite steps(1);
 }
 
+/* Intro sequence styles only apply when JS is running and the intro isn't skipped,
+   so the page stays fully readable without JS, with reduced motion, or on repeat visits. */
+
 /* Initially hide content for sequence to prevent flash */
-.cv-header .name,
-.cv-header .role,
-.cv-header .portfolio-link a,
-.cv-header .location {
+.js:not(.skip-intro) .cv-header .name,
+.js:not(.skip-intro) .cv-header .role,
+.js:not(.skip-intro) .cv-header .portfolio-link a,
+.js:not(.skip-intro) .cv-header .location {
   visibility: hidden;
 }
 
-.cv-header .name.glitch-active,
-.cv-header .role.glitch-active,
-.cv-header .portfolio-link a.glitch-active,
-.cv-header .location.glitch-active {
+.js:not(.skip-intro) .cv-header .name.glitch-active,
+.js:not(.skip-intro) .cv-header .role.glitch-active,
+.js:not(.skip-intro) .cv-header .portfolio-link a.glitch-active,
+.js:not(.skip-intro) .cv-header .location.glitch-active {
   visibility: visible;
 }
 
 /* Delay reveal for other content below header */
-.divider,
-.section,
-.cv-footer {
+.js:not(.skip-intro) .divider,
+.js:not(.skip-intro) .section,
+.js:not(.skip-intro) .cv-footer {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.reveal-content {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+.js:not(.skip-intro) .reveal-content {
+  opacity: 1;
+  transform: translateY(0);
 }
